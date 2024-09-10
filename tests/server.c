@@ -1,12 +1,5 @@
 //  Hello World server
-#include </home/firemax/Mobile_system_new_generations/tests/project.h>
-
-//  Hello World server
-#include <zmq.h>
-#include <string.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <assert.h>
+#include </home/firemax/Mobile_system_new_generations/include/project.h>
 
 int main (void)
 {

@@ -1,0 +1,4 @@
+/home/firemax/Mobile_system_new_generations/build/CMakeFiles/server.dir
+/home/firemax/Mobile_system_new_generations/build/CMakeFiles/client.dir
+/home/firemax/Mobile_system_new_generations/build/CMakeFiles/edit_cache.dir
+/home/firemax/Mobile_system_new_generations/build/CMakeFiles/rebuild_cache.dir
