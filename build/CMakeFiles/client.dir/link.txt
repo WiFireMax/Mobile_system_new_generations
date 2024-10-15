@@ -1,1 +1,1 @@
-/usr/bin/cc CMakeFiles/client.dir/tests/client.c.o -o client   -L/libzmq  -L/czmq  -Wl,-rpath,/libzmq:/czmq:/usr/local/lib /usr/local/lib/libzmq.so /usr/local/lib/libczmq.so 
+/usr/bin/cc CMakeFiles/client.dir/tests/client.c.o -o client  -lzmq -lczmq -lpcap 

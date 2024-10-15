@@ -48,13 +48,39 @@
                 }
             ],
             "miDebuggerPath": "/usr/bin/gdb"
-        }
+        },
+            {
+                "name": "(gdb) Launch srsenb",
+                "type": "cppdbg",
+                "request": "launch",
+                "program": "/home/firemax/srsRAN_4G/build/srsenb/src/srsenb",
+                "args": ["--rf.device_name=zmq",
+                "--rf.device_args=fail_on_disconnect=true,tx_port=tcp://*:2000,rx_port=tcp://localhost:2001,id=enb,base_srate=23.04e6"
+                ],
+                "stopAtEntry": true,
+                "cwd": "${fileDirname}",
+                "environment": [],
+                "externalConsole": false,
+                "MIMode": "gdb",
+                "setupCommands": [
+                    {
+                        "description": "Enable pretty-printing for gdb",
+                        "text": "-enable-pretty-printing",
+                        "ignoreFailures": true
+                    },
+                    {
+                        "description": "Set Disassembly Flavor to Intel",
+                        "text": "-gdb-set disassembly-flavor intel",
+                        "ignoreFailures": true
+                    }
+                ]
+            }
     ],
 
     "compounds": [
         {
             "name": "Compound",
-            "configurations": ["(gdb) Client", "(gdb) Launch Server"]
+            "configurations": ["(gdb) Client", "(gdb) Launch Server", "(gdb) Launch srsenb"]
         }
     ]
 }

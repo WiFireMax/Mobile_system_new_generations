@@ -1,38 +1,36 @@
-cmake_minimum_required(VERSION 3.15)
-project(mob_sys)
+cmake_minimum_required(VERSION 3.10)
 
-# Исходные файлы проекта
-set(SERVER_SOURCES
-tests/server.c
+# Установите имя проекта
+project(Client_Server)
+
+set(CMAKE_C_STANDARD 99)
+
+# Найти библиотеки pcap
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(PCAP REQUIRED libpcap)
+
+pkg_check_modules(ZMQ REQUIRED libzmq)
+pkg_check_modules(CZMQ REQUIRED libczmq)
+
+# Создайте исполняемые файлы для сервера и клиента
+add_executable(server tests/server.c)  
+add_executable(client tests/client.c)  
+
+#add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/test)
+
+# Свяжите библиотеки с исполняемыми файлами
+target_link_libraries(server ${ZMQ_LIBRARIES} ${CZMQ_LIBRARIES} ${PCAP_LIBRARIES})
+target_link_libraries(client ${ZMQ_LIBRARIES} ${CZMQ_LIBRARIES} ${PCAP_LIBRARIES})
+
+# Включите директории заголовков
+target_include_directories(server PUBLIC  
+    ${ZMQ_INCLUDE_DIRS}
+    ${CZMQ_INCLUDE_DIRS}
+    ${PCAP_INCLUDE_DIRS}
 )
 
-set(CLIENT_SOURCES
-tests/client.c
+target_include_directories(client PUBLIC  
+    ${ZMQ_INCLUDE_DIRS}
+    ${CZMQ_INCLUDE_DIRS}
+    ${PCAP_INCLUDE_DIRS}
 )
-
-set(HEADERS
-include/project.h
-)
-
-# Найти библиотеку libzmq
-find_library(LIBZMQ_LIBRARY zmq)
-find_path(LIBZMQ_INCLUDE_DIR zmq.h)
-
-# Найти библиотеку czmq
-find_library(CZMQ_LIBRARY czmq)
-find_path(CZMQ_INCLUDE_DIR czmq.h)
-
-# Путь до необходимых библиотек
-include_directories(${PATH}/libzmq)
-link_directories(${PATH}/libzmq)
-
-include_directories(${PATH}/czmq)
-link_directories(${PATH}/czmq)
-
-# Добавление исполняемых файлов
-add_executable(server ${SERVER_SOURCES})
-add_executable(client ${CLIENT_SOURCES})
-
-# Линковка с библиотеками libzmq и czmq
-target_link_libraries(server ${LIBZMQ_LIBRARY} ${CZMQ_LIBRARY})
-target_link_libraries(client ${LIBZMQ_LIBRARY} ${CZMQ_LIBRARY})
