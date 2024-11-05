@@ -1,0 +1,88 @@
+@options
+@packages
+-classpath
+'/home/firemax/.m2/repository/eu/neilalexander/jnacl/1.0.0/jnacl-1.0.0.jar'
+-encoding
+'UTF-8'
+-protected
+--release
+8
+-sourcepath
+'/home/firemax/Mobile_system_new_generations/src/jeromq/src/main/java:/home/firemax/Mobile_system_new_generations/src/jeromq/target/generated-sources/annotations'
+-author
+-bottom
+'Copyright &#169; 1970. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'/home/firemax/Mobile_system_new_generations/src/jeromq/target/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'JeroMQ 0.6.0 API'
+-linkoffline
+'https://docs.oracle.com/javase/8/docs/api' '/home/firemax/Mobile_system_new_generations/src/jeromq/target/javadoc-bundle-options'
+-notimestamp
+-tag
+"api.note:a:API Note"
+-use
+-version
+-windowtitle
+'JeroMQ 0.6.0 API'
+org.zeromq
+org.zeromq.proto
+org.zeromq.timer
+org.zeromq.util
+zmq.poll
+zmq
+zmq.util
+zmq.util.function
+zmq.msg
+zmq.io.coder.raw
+zmq.io.coder
+zmq.io.coder.v1
+zmq.io.coder.v2
+zmq.io
+zmq.io.net
+zmq.io.net.pgm
+zmq.io.net.ipc
+zmq.io.net.tipc
+zmq.io.net.tcp
+zmq.io.net.norm
+zmq.io.mechanism.gssapi
+zmq.io.mechanism
+zmq.io.mechanism.plain
+zmq.io.mechanism.curve
+zmq.pipe
+zmq.socket.pipeline
+zmq.socket.reqrep
+zmq.socket
+zmq.socket.radiodish
+zmq.socket.scattergather
+zmq.socket.clientserver
+zmq.socket.pubsub
+/home/firemax/.m2/repository/eu/neilalexander/jnacl/1.0.0/jnacl-1.0.0.jar = 1730736446709
+/home/firemax/Mobile_system_new_generations/src/jeromq/src/main/java = 1730771967882
+/home/firemax/Mobile_system_new_generations/src/jeromq/target/generated-sources/annotations = 1730772464909
+/home/firemax/Mobile_system_new_generations/src/jeromq/target/apidocs/overview-tree.html = 1730772710052
+/home/firemax/Mobile_system_new_generations/src/jeromq/target/apidocs/help-doc.html = 1730772710228
+/home/firemax/Mobile_system_new_generations/src/jeromq/target/apidocs/overview-summary.html = 1730772710226
+/home/firemax/Mobile_system_new_generations/src/jeromq/target/apidocs/allclasses-index.html = 1730772710206
+/home/firemax/Mobile_system_new_generations/src/jeromq/target/apidocs/deprecated-list.html = 1730772710218
+/home/firemax/Mobile_system_new_generations/src/jeromq/target/apidocs/allpackages-index.html = 1730772710207
+/home/firemax/Mobile_system_new_generations/src/jeromq/target/apidocs/index-all.html = 1730772710198
+/home/firemax/Mobile_system_new_generations/src/jeromq/target/apidocs/package-search-index.zip = 1730772710182
+/home/firemax/Mobile_system_new_generations/src/jeromq/target/apidocs/constant-values.html = 1730772709706
+/home/firemax/Mobile_system_new_generations/src/jeromq/target/apidocs/package-search-index.js = 1730772710181
+/home/firemax/Mobile_system_new_generations/src/jeromq/target/apidocs/stylesheet.css = 1730772710228
+/home/firemax/Mobile_system_new_generations/src/jeromq/target/apidocs/member-search-index.zip = 1730772710189
+/home/firemax/Mobile_system_new_generations/src/jeromq/target/apidocs/script.js = 1730772710228
+/home/firemax/Mobile_system_new_generations/src/jeromq/target/apidocs/index.html = 1730772710226
+/home/firemax/Mobile_system_new_generations/src/jeromq/target/apidocs/member-search-index.js = 1730772710185
+/home/firemax/Mobile_system_new_generations/src/jeromq/target/apidocs/allclasses.html = 1730772710222
+/home/firemax/Mobile_system_new_generations/src/jeromq/target/apidocs/serialized-form.html = 1730772709713
+/home/firemax/Mobile_system_new_generations/src/jeromq/target/apidocs/search.js = 1730772710229
+/home/firemax/Mobile_system_new_generations/src/jeromq/target/apidocs/element-list = 1730772709629
+/home/firemax/Mobile_system_new_generations/src/jeromq/target/apidocs/jquery-ui.overrides.css = 1730772710232
+/home/firemax/Mobile_system_new_generations/src/jeromq/target/apidocs/type-search-index.js = 1730772710183
+/home/firemax/Mobile_system_new_generations/src/jeromq/target/apidocs/type-search-index.zip = 1730772710183

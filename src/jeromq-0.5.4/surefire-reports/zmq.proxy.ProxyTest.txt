@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: zmq.proxy.ProxyTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 10.278 s <<< FAILURE! - in zmq.proxy.ProxyTest
+testProxy(zmq.proxy.ProxyTest)  Time elapsed: 10.023 s  <<< ERROR!
+org.junit.runners.model.TestTimedOutException: test timed out after 10000 milliseconds
+	at app//zmq.proxy.ProxyTest.testProxy(ProxyTest.java:348)
+

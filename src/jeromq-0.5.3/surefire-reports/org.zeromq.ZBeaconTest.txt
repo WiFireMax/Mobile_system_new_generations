@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: org.zeromq.ZBeaconTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 2, Time elapsed: 0.52 s - in org.zeromq.ZBeaconTest

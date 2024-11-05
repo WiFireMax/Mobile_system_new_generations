@@ -1,0 +1,11 @@
+-------------------------------------------------------------------------------
+Test set: zmq.TestTimeo
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 3.307 s <<< FAILURE! - in zmq.TestTimeo
+testTimeo(zmq.TestTimeo)  Time elapsed: 0.618 s  <<< FAILURE!
+java.lang.AssertionError: 
+
+Expected: is <true>
+     but: was <false>
+	at zmq.TestTimeo.testTimeo(TestTimeo.java:56)
+

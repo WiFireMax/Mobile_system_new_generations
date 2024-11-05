@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: org.zeromq.ZBeaconTest
+-------------------------------------------------------------------------------
+Tests run: 6, Failures: 1, Errors: 0, Skipped: 2, Time elapsed: 1.171 s <<< FAILURE! - in org.zeromq.ZBeaconTest
+testUseBuilder(org.zeromq.ZBeaconTest)  Time elapsed: 0.663 s  <<< FAILURE!
+java.lang.AssertionError: expected 500, got 646
+	at org.zeromq.ZBeaconTest.testUseBuilder(ZBeaconTest.java:63)
+
