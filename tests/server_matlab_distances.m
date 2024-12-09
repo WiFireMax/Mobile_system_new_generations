@@ -17,9 +17,11 @@ uicontrol('Style', 'pushbutton', 'String', 'Pause/Resume', ...
           'Position', [20, 20, 100, 30], ...
           'Callback', @(src, event) togglePause());
 
-% Определение расстояний для расчета
-distances = [10, 50, 100, 300, 500, 1000, 4000]; % Расстояния в метрах
-frequency = 900; % Частота в МГц
+distances = [10, 50, 100, 300, 500, 1000, 4000];
+frequency = 900;
+hB = 30; 
+hR = 1.5; 
+Cm = 0; 
 
 while true
     if ~pauseFlag
@@ -27,7 +29,7 @@ while true
         if ~isempty(msg)
             fprintf('received message [%d]\n', length(msg));
             if(length(msg) > 1000)
-                process_data(msg, distances, frequency);
+                process_data(msg, distances, frequency, hB, hR, Cm);
             end
             socket_api_proxy.send("OK");
         end
@@ -41,11 +43,11 @@ function togglePause()
     pauseFlag = ~pauseFlag;
 end
 
-function process_data(data_raw, distances, frequency)
+function process_data(data_raw, distances, frequency, hB, hR, Cm)
     fs = 23040000;
     fprintf("size data: %d\n", length(data_raw));
     
-    % Преобразование данных в комплексный формат
+    
     data_slice = data_raw;
     floatArray = typecast(uint8(data_slice), 'single');
     complexArray = complex(floatArray(1:2:end), floatArray(2:2:end));
@@ -53,45 +55,46 @@ function process_data(data_raw, distances, frequency)
     
     fprintf("size complex data: %d\n", length(data_complex));
     
-    % Инициализация массивов для хранения результатов
+    
     RSRP = zeros(size(distances));
     SINR = zeros(size(distances));
     RSRQ = zeros(size(distances));
     
-    % Цикл по каждому расстоянию для расчета метрик
+    
     for i = 1:length(distances)
-        d = distances(i);
+        d_m = distances(i); 
+        d_km = d_m / 1000; 
         
-        % Расчет затухания радиосигнала по модели Cost-Hata
-        PL = calculatePathLoss(d, frequency);
-        fprintf('Distance: %.2f m | Path Loss: %.2f dB\n', d, PL);
         
-        % Преобразование затухания из дБ в линейный коэффициент
+        PL = calculatePathLoss(d_km, frequency, hB, hR, Cm);
+        fprintf('Distance: %.2f m | Path Loss: %.2f dB\n', d_m, PL);
+        
+        
         scale_factor = 10^(-PL / 20);
         
-        % Применение затухания к массиву сэмплов
+        
         scaled_samples = data_complex * scale_factor;
         
-        % Вычисление RSRP (Сигнал на уровне опорного сигнала)
-        RSRP(i) = mean(abs(scaled_samples)); % Пример расчета
         
-        % Вычисление SINR (Отношение сигнала к шуму и помехам)
-        noise_power = 1e-9; % Пример мощности шума в ваттах
-        interference_power = 0.5 * mean(abs(scaled_samples)); % Пример мощности помехи
-        SINR(i) = RSRP(i) / (noise_power + interference_power); % Пример расчета
+        RSRP(i) = mean(abs(scaled_samples)); 
         
-        % Вычисление RSRQ (Качество опорного сигнала)
-        RSRQ(i) = RSRP(i) / (noise_power + interference_power); % Упрощенный пример
+        
+        noise_power = 1e-9; 
+        interference_power = 0.5 * mean(abs(scaled_samples)); 
+        SINR(i) = RSRP(i) / (noise_power + interference_power);
+        
+        
+        RSRQ(i) = RSRP(i) / (noise_power + interference_power);
     end
     
-    % Отображение результатов
+    
     disp('Distance (m) | RSRP (dBm) | SINR (dB) | RSRQ (dB)');
     for i = 1:length(distances)
         fprintf('%13.2f | %.2f       | %.2f     | %.2f\n', distances(i), ...
             10*log10(RSRP(i)), 10*log10(SINR(i)), RSRQ(i));
     end
     
-    % Построение графиков результатов
+    
     subplot(3,1,1);
     plot(distances, 10*log10(RSRP), '-o');
     title('RSRP vs Distance');
@@ -114,11 +117,21 @@ function process_data(data_raw, distances, frequency)
     grid on;
 
 end
+function PL = calculatePathLoss(d_km, f_MHz, hB_m, hR_m, C_m)
+    
+    a_hR_f = a(hR_m, f_MHz); 
+    PL = 46.3 + 33.9 * log10(f_MHz) - ...
+         13.82 * log10(hB_m) - a_hR_f + ...
+         (44.9 - 6.55 * log10(hB_m)) * log10(d_km) + C_m;
+end
 
-function PL = calculatePathLoss(d, f)
-    % Расчет затухания радиосигнала по модели Cost-Hata
-    if d < 1
-        d = 1; % Минимальное расстояние для избежания log(0)
+function a_hR_f = a(hR_m, f_MHz)
+    
+    if f_MHz >= 150 && f_MHz <= 200
+        a_hR_f = 8.29 * (log10(1.54 * hR_m))^2 - 1.1;
+    elseif f_MHz > 200 && f_MHz <= 1500
+        a_hR_f = 3.2 * (log10(11.75 * hR_m))^2 - 4.97;
+    else
+        a_hR_f = 0; 
     end
-    PL = 28 + 22 * log10(d) + 20 * log10(f);
 end
