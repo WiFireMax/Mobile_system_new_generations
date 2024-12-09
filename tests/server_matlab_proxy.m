@@ -36,32 +36,57 @@ function togglePause()
     pauseFlag = ~pauseFlag;
 end
 function process_data(data_raw)
-    fs = 23040000;
+    fs = 23040000; % Sampling frequency
     fprintf("size data: %d\n", length(data_raw));
     data_slice = data_raw;
     floatArray = typecast(uint8(data_slice), 'single');
     complexArray = complex(floatArray(1:2:end), floatArray(2:2:end));
     data_complex = complexArray(1:128*180);
-    fprintf("size complex data: %d\n", length(data_complex));
+    
+    % Define distance (d in km) and frequency (f in MHz)
+    d = 1; % Example distance in kilometers
+    f = 900; % Example frequency in megahertz
+
+    % Calculate Path Loss
+    PL = calculatePathLoss(d, f);
+    fprintf("Calculated Path Loss: %.2f dB\n", PL);
+    
+    % Calculate scale factor based on Path Loss
+    scale_factor = 10^(-PL / 20);
+    
+    % Apply Path Loss scaling to the complex data
+    scaled_data_complex = data_complex * scale_factor;
+
+    fprintf("size complex data: %d\n", length(scaled_data_complex));
     cla;
+    
     window = 128;    
     noverlap = 0; 
     nfft = 128;      
-    if any(isnan(data_complex))
-        data_complex(isnan(data_complex)) = 0;
+    
+    if any(isnan(scaled_data_complex))
+        scaled_data_complex(isnan(scaled_data_complex)) = 0;
     end
-    subplot(2, 2, 1);
-    x_t = 1:length(data_complex);
-    plot(x_t, data_complex);
-    title('Данные в временной области');
+    
+    subplot(2, 1, 1);
+    x_t = 1:length(scaled_data_complex);
+    plot(x_t, scaled_data_complex);
+    title('Данные в временной области (с учетом потерь)');
     xlabel('Отсчеты');
     ylabel('Амплитуда');
-    subplot(2, 2, 2);
-    spectrogram(data_complex, window, noverlap, nfft, fs, 'yaxis');
-    title('Спектрограмма переданных данных');
+    
+    subplot(2, 1, 2);
+    spectrogram(scaled_data_complex, window, noverlap, nfft, fs, 'yaxis');
+    title('Спектрограмма переданных данных (с учетом потерь)');
     xlabel('Время (сек)');
     ylabel('Частота (Гц)');
     colorbar;
     grid on;
+    
     drawnow;
+end
+
+function PL = calculatePathLoss(d, f)
+    % Calculate Path Loss using the formula
+    PL = 28.0 + 22 * log10(d) + 20 * log10(f);
 end
