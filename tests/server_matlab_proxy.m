@@ -67,7 +67,7 @@ function process_data(data_raw)
     if any(isnan(scaled_data_complex))
         scaled_data_complex(isnan(scaled_data_complex)) = 0;
     end
-    
+    %
     subplot(2, 1, 1);
     x_t = 1:length(scaled_data_complex);
     plot(x_t, scaled_data_complex);
